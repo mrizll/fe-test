@@ -1,25 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
+import FormInput from './components/form/form-input.component';
+import { useState } from 'react';
 
 function App() {
+
+  const [inputValue, setInputValue] = useState('')
+  const [outputValue, setOutputValue] = useState('')
+
+  const handleChange = (event) => {
+    const value = event.target.value
+    setInputValue(value)
+
+    const tempArray = value.split(',')
+    const newArray = tempArray.map(val => val * 2)
+
+    setOutputValue(newArray.join(','))
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <FormInput onChange={handleChange} value={inputValue} title="Input" subTitle="Array" />
+      <FormInput value={outputValue} title="Output" subTitle="Double" />
     </div>
   );
 }
-
 export default App;
